@@ -1,29 +1,35 @@
-const form = document.getElementById('payment-form');
+   const form = document.querySelector('form');
 
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
 
-  const cardNumber = form.querySelector('#cardNumber').value;
-  const cardHolderName = form.querySelector('#cardHolderName').value;
-  const expirationDate = form.querySelector('#expirationDate').value;
-  const cardCvv = form.querySelector('#cardCvv').value;
+      const data = {
+        id: form.id.value,
+        cardNumber: form.cardNumber.value,
+        cardName: form.cardName.value,
+        cardHolderName: form.cardHolderName.value,
+        expirationDate: form.expirationDate.value,
+        cardCvv: form.cardCvv.value,
+        cardAmount: form.cardAmount.value
+      };
 
-  const paymentData = { cardNumber, cardHolderName, expirationDate, cardCvv };
+      console.log('Sending data:', data);
 
-  fetch('/payments', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(paymentData)
-  })
-  .then(response => response.json())
-  .then(data => {
-    alert('Payment created successfully');
-    form.reset();
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('An error occurred. Please try again later.');
-  });
-});
+      fetch('/api/v1/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Payment created:', data);
+        alert('Payment created successfully');
+        form.reset();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
+      });
+    });

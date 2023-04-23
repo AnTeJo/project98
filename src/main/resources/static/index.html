@@ -1,27 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="js/script.js"></script>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payment</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <div class="payment-form">
   <h2>Payments</h2>
   <form>
-    <label for="card-number">Номер карты:</label>
-    <input id="card-number" name="card-number" type="text" inputmode="numeric" pattern="[0-9]{8,19}" placeholder="Введите номер карты">
-    <label for="card-name">Имя на карте:</label>
-    <input type="text" id="card-name" name="card-name" placeholder="Введите имя на карте">
-    <label for="card-expiry">Срок действия:</label>
-    <input type="text" id="card-expiry" name="card-expiry" placeholder="Введите срок действия (мм/гг)">
-    <label for="card-cvv">CVV:</label>
-    <input type="text" id="card-cvv" name="card-cvv" placeholder="Введите CVV">
-    <button type="submit">Оплатить</button>
+<!--    <label for="id">ID:</label>-->
+<!--    <input id="id" name="id" type="numeric" inputmode="numeric" placeholder="id">-->
+
+    <label for="cardNumber">Card Number:</label>
+    <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" pattern="[0-9]{8,19}" placeholder="cardNumber">
+
+    <label for="cardHolderName">Card Holder Name:</label>
+    <input type="text" id="cardHolderName" name="cardHolderName" placeholder="Enter card holder name">
+
+    <label for="expirationDate">Expiration Date:</label>
+    <input type="text" id="expirationDate" name="expirationDate" placeholder="Enter expiration date (MM/YY)">
+
+    <label for="cardCvv">CVV:</label>
+    <input type="text" id="cardCvv" name="cardCvv" placeholder="Enter CVV">
+
+    <label for="cardAmount">Amount:</label>
+    <input type="numeric" id="cardAmount" name="cardAmount" placeholder="Enter amount">
+
+    <button type="submit">Pay Now</button>
   </form>
 </div>
+
+<script>
+   const form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        id: form.id.value,
+        cardNumber: form.cardNumber.value,
+        cardHolderName: form.cardHolderName.value,
+        expirationDate: form.expirationDate.value,
+        cardCvv: form.cardCvv.value,
+        cardAmount: form.cardAmount.value
+      };
+
+      console.log('Sending data:', data);
+
+      fetch('/api/v1/payments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Payment created:', data);
+        alert('Payment created successfully');
+        form.reset();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again later.');
+      });
+    });
+</script>
 </body>
 </html>

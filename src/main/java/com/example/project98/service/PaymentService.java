@@ -56,7 +56,6 @@ public class PaymentService {
 
         payment.setCardNumber(paymentDetails.getCardNumber());
         payment.setCardHolderName(paymentDetails.getCardHolderName());
-        payment.setCardName(paymentDetails.getCardName());
         payment.setExpirationDate(paymentDetails.getExpirationDate());
         payment.setCardCvv(paymentDetails.getCardCvv());
         payment.setCardAmount(paymentDetails.getCardAmount());
