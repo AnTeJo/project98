@@ -1,71 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="payment-form">
-  <h2>Payments</h2>
-  <form>
-<!--    <label for="id">ID:</label>-->
-<!--    <input id="id" name="id" type="numeric" inputmode="numeric" placeholder="id">-->
 
-    <label for="cardNumber">Card Number:</label>
-    <input id="cardNumber" name="cardNumber" type="text" inputmode="numeric" pattern="[0-9]{8,19}" placeholder="cardNumber">
+<div class="container">
+    <div class="card-container">
+        <div class="front">
+            <div class="image">
+                <img src="images/chip.png" alt="">
+                <img src="images/visa.png" alt="">
+            </div>
+            <div class="card-number-box">################</div>
+            <div class="flexbox">
+                <div class="box">
+                    <span>card holder</span>
+                    <div class="card-holder-name">full name</div>
+                </div>
+                <div class="box">
+                    <span>expires</span>
+                    <div class="expiration">
+                        <span class="exp-month">mm</span>
+                        <span class="exp-year">yy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="back">
+            <div class="stripe"></div>
+            <div class="box">
+                <span>cvv</span>
+                <div class="cvv-box"></div>
+                <img src="images/visa.png" alt="">
+            </div>
+        </div>
+    </div>
 
-    <label for="cardHolderName">Card Holder Name:</label>
-    <input type="text" id="cardHolderName" name="cardHolderName" placeholder="Enter card holder name">
+    <form action="" method="POST">
+        <div class="inputBox">
+            <span>Номер карты:</span>
+            <input type="text" id="cardNumber" name="cardNumber" maxlength="16" class="card-number-input" placeholder="Введите номер карты">
+        </div>
+        <div class="inputBox">
+            <span>Имя на карте:</span>
+            <input type="text" id="cardHolderName" name="cardHolderName" class="card-holder-input" placeholder="Введите имя на карте">
+        </div>
+        <div class="flexbox">
+            <div class="inputBox" id="expirationDate">
+                <span>Срок действия: мм</span>
+                <select name="expMonth" id="" class="month-input">
+                    <option value="month" selected disabled>месяц</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <div class="inputBox">
+                <span>Срок действия: г</span>
+                <select name="expYear" id="" class="year-input">
+                    <option value="year" selected disabled>год</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                </select>
+            </div>
+            <div class="inputBox" id="cardCvv">
+                <span>cvv</span>
+                <input type="text" maxlength="3" name="cardCvv" class="cvv-input" placeholder="CVV код">
+            </div>
+        </div>
+        <div class="inputBox" id="sumPayment">
+            <span>Сумма оплаты:</span>
+            <input type="text" name="sumPayment" class="summ-input" placeholder="Введите сумму оплаты">
+        </div>
+        <div class="top-block"></div>
+        <div class="button">
+            <a href="#" class="button open-popup">Оплатить</a>
+        </div>
 
-    <label for="expirationDate">Expiration Date:</label>
-    <input type="text" id="expirationDate" name="expirationDate" placeholder="Enter expiration date (MM/YY)">
+        <div class="bottom-block"></div>
+        <div class="popup-bg">
+            <div class="popup">
+                <h6> Мы отправили вам на номер код потверждение. Введите 4-х значный код для потверждение вашей личности. </h6>
+                <img class="close-popup" src="images/close.png" alt="">
+                <div class="flexbox">
+                    <div class="inputBox">
+                        <span>Код подтверждения:</span>
+                        <input type="text" maxlength="4" class="code-input" placeholder="****" required>
+                    </div>
+                </div>
+                <button type="submit">Отправить</button>
+            </div>
+        </div>
 
-    <label for="cardCvv">CVV:</label>
-    <input type="text" id="cardCvv" name="cardCvv" placeholder="Enter CVV">
-
-    <label for="cardAmount">Amount:</label>
-    <input type="numeric" id="cardAmount" name="cardAmount" placeholder="Enter amount">
-
-    <button type="submit">Pay Now</button>
-  </form>
+    </form>
 </div>
-
-<script>
-   const form = document.querySelector('form');
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const data = {
-        id: form.id.value,
-        cardNumber: form.cardNumber.value,
-        cardHolderName: form.cardHolderName.value,
-        expirationDate: form.expirationDate.value,
-        cardCvv: form.cardCvv.value,
-        cardAmount: form.cardAmount.value
-      };
-
-      console.log('Sending data:', data);
-
-      fetch('/api/v1/payments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Payment created:', data);
-        alert('Payment created successfully');
-        form.reset();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
-      });
-    });
-</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

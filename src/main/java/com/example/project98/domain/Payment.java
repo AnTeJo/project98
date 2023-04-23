@@ -7,34 +7,37 @@ import java.math.BigDecimal;
 @Table(name = "payments")
 public class Payment {
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long idPayment;
     private String cardNumber;
 
     private String cardHolderName;
 
-    private String expirationDate;
+    private String expMonth;
+    private String expYear;
 
     private String cardCvv;
 
-    private BigDecimal cardAmount;
+    private BigDecimal sumPayment;
 
 
-    public Payment(String cardNumber, String cardHolderName, String expirationDate, String cardCvv, BigDecimal cardAmount) {
+    public Payment(String cardNumber, String cardHolderName, String expMonth, String expYear, String cardCvv, BigDecimal sumPayment) {
         this.cardNumber = cardNumber;
         this.cardHolderName = cardHolderName;
-        this.expirationDate = expirationDate;
+        this.expMonth = expMonth;
+        this.expYear = expYear;
         this.cardCvv = cardCvv;
-        this.cardAmount = cardAmount;
+        this.sumPayment = sumPayment;
     }
 
     public Payment(){
         super();
     }
-    public long getId() {
-        return id;
+    public long getIdPayment() {
+        return idPayment;
     }
-    public void setId(long id) {
-        this.id = id;
+    public void setIdPayment(long id) {
+        this.idPayment = idPayment;
     }
     public String getCardNumber() {
         return cardNumber;
@@ -48,19 +51,25 @@ public class Payment {
     public void setCardHolderName(String cardHolderName) {
         this.cardHolderName = cardHolderName;
     }
-    public String getExpirationDate() {
-        return expirationDate;
+    public String getExpMonth() {
+        return expMonth;
     }
-    public void setExpirationDate(String expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpMonth(String expMonth) {
+        this.expMonth = expMonth;
+    }
+    public String getExpYear() {
+        return expYear;
+    }
+    public void setExpYear(String expYear) {
+        this.expYear = expYear;
     }
     public String getCardCvv() {return cardCvv;}
     public void setCardCvv(String cardCvv) {
         this.cardCvv = cardCvv;
     }
-    public BigDecimal getCardAmount() {
-        return cardAmount;
+    public BigDecimal getSumPayment() {
+        return sumPayment;
     }
-    public void setCardAmount(BigDecimal cardAmount) {this.cardAmount = cardAmount;}
+    public void setSumPayment(BigDecimal sumPayment) {this.sumPayment = sumPayment;}
 
 }

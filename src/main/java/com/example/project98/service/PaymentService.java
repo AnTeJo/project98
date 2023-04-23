@@ -1,7 +1,6 @@
 package com.example.project98.service;
 
 import com.example.project98.domain.Payment;
-import com.example.project98.domain.Payment;
 import com.example.project98.exception.ConstraintException;
 import com.example.project98.exception.ResourceNotFoundException;
 import com.example.project98.repository.PaymentRepository;
@@ -29,10 +28,6 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
-//    public PaymentService(PaymentRepository paymentRepository) {
-//        this.paymentRepository = paymentRepository;
-//    }
-
     public Payment findById(Long paymentId) throws ResourceNotFoundException {
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Client not found for this id: " + paymentId));
@@ -56,9 +51,10 @@ public class PaymentService {
 
         payment.setCardNumber(paymentDetails.getCardNumber());
         payment.setCardHolderName(paymentDetails.getCardHolderName());
-        payment.setExpirationDate(paymentDetails.getExpirationDate());
+        payment.setExpMonth(paymentDetails.getExpMonth());
+        payment.setExpYear(paymentDetails.getExpYear());
         payment.setCardCvv(paymentDetails.getCardCvv());
-        payment.setCardAmount(paymentDetails.getCardAmount());
+        payment.setSumPayment(paymentDetails.getSumPayment());
 
         return paymentRepository.save(payment);
     }
@@ -71,7 +67,7 @@ public class PaymentService {
         }
 
         // Проверяем, что все обязательные поля заполнены
-        if (payment.getCardAmount() == null || payment.getCardNumber() == null || payment.getCardHolderName() == null || payment.getExpirationDate() == null || payment.getCardCvv() == null) {
+        if (payment.getSumPayment() == null || payment.getCardNumber() == null || payment.getCardHolderName() == null || payment.getExpMonth() == null|| payment.getExpYear() == null || payment.getCardCvv() == null) {
             throw new IllegalArgumentException("Payment must have a non-null amount, card number, card holder name, expiry date and CVV");
         }
 
