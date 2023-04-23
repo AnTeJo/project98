@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idPayment;
+    private long paymentId;
     private String cardNumber;
 
     private String cardHolderName;
@@ -33,11 +33,11 @@ public class Payment {
     public Payment(){
         super();
     }
-    public long getIdPayment() {
-        return idPayment;
+    public long getPaymentId() {
+        return paymentId;
     }
-    public void setIdPayment(long id) {
-        this.idPayment = idPayment;
+    public void setPaymentId(long id) {
+        this.paymentId = paymentId;
     }
     public String getCardNumber() {
         return cardNumber;
